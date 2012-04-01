@@ -30,6 +30,7 @@ extern bool gpu_busy_state;
 #endif
 
 /* cmdline_khz variables */
+extern uint32_t cmdline_maxkhz, cmdline_minkhz;
 extern char cmdline_gov;
 
 /*********************************************************************
