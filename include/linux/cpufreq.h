@@ -29,6 +29,9 @@
 extern bool gpu_busy_state;
 #endif
 
+/* cmdline_khz variables */
+extern char cmdline_gov;
+
 /*********************************************************************
  *                     CPUFREQ NOTIFIER INTERFACE                    *
  *********************************************************************/
