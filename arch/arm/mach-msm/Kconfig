@@ -2294,3 +2294,4 @@ config FORCE_FAST_CHARGE
 		are detected as USB to charge as AC.
 
 endif
+
