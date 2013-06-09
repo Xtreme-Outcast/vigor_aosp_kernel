@@ -231,8 +231,8 @@ static struct clkctl_acpu_speed acpu_freq_tbl_hate[] = {
   { {1, 1}, 1620000,  ACPU_SCPLL, 0, 0, 1, 0x1E, L2(22), 1200000, 0x03006000},
   { {1, 1}, 1674000,  ACPU_SCPLL, 0, 0, 1, 0x1F, L2(22), 1225000, 0x03006000},
   { {1, 1}, 1728000,  ACPU_SCPLL, 0, 0, 1, 0x20, L2(22), 1250000, 0x03006000},
-  { {1, 1}, 1782000,  ACPU_SCPLL, 0, 0, 1, 0x21, L2(22), 1275000, 0x03006000},
-  { {1, 1}, 1836000,  ACPU_SCPLL, 0, 0, 1, 0x22, L2(22), 1300000, 0x03006000},
+  { {1, 1}, 1782000,  ACPU_SCPLL, 0, 0, 1, 0x21, L2(21), 1275000, 0x03006000},
+  { {1, 1}, 1836000,  ACPU_SCPLL, 0, 0, 1, 0x22, L2(21), 1300000, 0x03006000},
   { {0, 0}, 0 },
 };
 
@@ -832,8 +832,6 @@ static struct notifier_block __cpuinitdata acpuclock_cpu_notifier = {
 	.notifier_call = acpuclock_cpu_callback,
 };
 
-#ifdef CONFIG_CMDLINE_OPTIONS
-/* start cmdline_khz */
 #ifdef CONFIG_MSM_MPDEC
 uint32_t acpu_check_khz_value(unsigned long khz)
 {
@@ -858,8 +856,6 @@ uint32_t acpu_check_khz_value(unsigned long khz)
         return -1;
 }
 EXPORT_SYMBOL(acpu_check_khz_value);
-#endif
-/* end cmdline_khz */
 #endif
 
 static __init struct clkctl_acpu_speed *select_freq_plan(void)
