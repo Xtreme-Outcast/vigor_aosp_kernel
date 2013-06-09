@@ -51,7 +51,7 @@ struct cpufreq_lulzactive_cpuinfo {
 	cputime64_t freq_change_time_in_idle;
 	struct cpufreq_policy *policy;
 	struct cpufreq_frequency_table *freq_table;
-	struct cpufreq_frequency_table lulzfreq_table[35];
+	struct cpufreq_frequency_table lulzfreq_table[34];
 	unsigned int lulzfreq_table_size;
 	unsigned int target_freq;
 	int governor_enabled;
@@ -70,7 +70,7 @@ static spinlock_t down_cpumask_lock;
 static struct mutex set_speed_lock;
 
 /* Hi speed to bump to from lo speed when load burst (default max) */
-static cputime64_t hispeed_freq = 810000;
+static cputime64_t hispeed_freq = 1296000;
 
 /*
  * The minimum amount of time to spend at a frequency before we can step up.
@@ -122,7 +122,7 @@ static unsigned long pump_down_step;
  */
 static unsigned int early_suspended;
 
-#define SCREEN_OFF_LOWEST_STEP 		(0x76A70)
+#define SCREEN_OFF_LOWEST_STEP 		(0x91050)
 #define DEFAULT_SCREEN_OFF_MIN_STEP	(SCREEN_OFF_LOWEST_STEP)
 static unsigned long screen_off_min_step;
 
@@ -155,18 +155,18 @@ static unsigned int get_lulzfreq_table_size(struct cpufreq_lulzactive_cpuinfo *p
 
 static inline void fix_screen_off_min_step(struct cpufreq_lulzactive_cpuinfo *pcpu) {
 	if (pcpu->lulzfreq_table_size <= 0) {
-		screen_off_min_step = 0;
+		screen_off_min_step = 5;
 		return;
 	}
 	
 	if (DEFAULT_SCREEN_OFF_MIN_STEP == screen_off_min_step) 
 		for(screen_off_min_step=5;
-		pcpu->lulzfreq_table[screen_off_min_step].frequency != 486000;
+		pcpu->lulzfreq_table[screen_off_min_step].frequency != 594000;
 		screen_off_min_step++);
 	
 	if (screen_off_min_step >= pcpu->lulzfreq_table_size)
 		for(screen_off_min_step=5;
-		pcpu->lulzfreq_table[screen_off_min_step].frequency != 486000;
+		pcpu->lulzfreq_table[screen_off_min_step].frequency != 594000;
 		screen_off_min_step++);
 }
 
