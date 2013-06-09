@@ -941,11 +941,11 @@ choice
 	config MSM_AMSS_VERSION_1200
 		bool "1.2.00"
 
+endchoice
+
 config CPU_VOLTAGE_TABLE
   	bool "Enable CPU Voltage Table via sysfs for adjustements"
-  	default n
-
-endchoice
+  	default y
 
 config MSM_DEBUG_UART
 	int
