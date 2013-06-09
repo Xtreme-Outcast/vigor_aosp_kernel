@@ -195,7 +195,8 @@ static struct clkctl_l2_speed l2_freq_tbl_v2[] = {
 	[19] = {1404000,  1, 0x1A, 1200000, 1250000, 3},
 	[20] = {1458000,  1, 0x1B, 1200000, 1250000, 4},
 	[21] = {1512000,  1, 0x1C, 1200000, 1250000, 4},
-	[22] = {1566000,  1, 0x1D, 1200000, 1250000, 4},
+	[22] = {1536000,  1, 0x1D, 1200000, 1250000, 4},
+	[23] = {1566000,  1, 0x1E, 1200000, 1250000, 4},
 };
 
 #define L2(x) (&l2_freq_tbl_v2[(x)])
@@ -227,12 +228,12 @@ static struct clkctl_acpu_speed acpu_freq_tbl_hate[] = {
   { {1, 1}, 1404000,  ACPU_SCPLL, 0, 0, 1, 0x1A, L2(19), 1150000, 0x03006000},
   { {1, 1}, 1458000,  ACPU_SCPLL, 0, 0, 1, 0x1B, L2(20), 1150000, 0x03006000},
   { {1, 1}, 1512000,  ACPU_SCPLL, 0, 0, 1, 0x1C, L2(21), 1175000, 0x03006000},
-  { {1, 1}, 1566000,  ACPU_SCPLL, 0, 0, 1, 0x1D, L2(21), 1175000, 0x03006000},
-  { {1, 1}, 1620000,  ACPU_SCPLL, 0, 0, 1, 0x1E, L2(21), 1200000, 0x03006000},
-  { {1, 1}, 1674000,  ACPU_SCPLL, 0, 0, 1, 0x1F, L2(22), 1225000, 0x03006000},
-  { {1, 1}, 1728000,  ACPU_SCPLL, 0, 0, 1, 0x20, L2(22), 1250000, 0x03006000},
-  { {1, 1}, 1782000,  ACPU_SCPLL, 0, 0, 1, 0x21, L2(22), 1275000, 0x03006000},
-  { {1, 1}, 1836000,  ACPU_SCPLL, 0, 0, 1, 0x22, L2(22), 1300000, 0x03006000},
+  { {1, 1}, 1566000,  ACPU_SCPLL, 0, 0, 1, 0x1D, L2(22), 1175000, 0x03006000},
+  { {1, 1}, 1620000,  ACPU_SCPLL, 0, 0, 1, 0x1E, L2(23), 1200000, 0x03006000},
+  { {1, 1}, 1674000,  ACPU_SCPLL, 0, 0, 1, 0x1F, L2(23), 1225000, 0x03006000},
+  { {1, 1}, 1728000,  ACPU_SCPLL, 0, 0, 1, 0x20, L2(23), 1250000, 0x03006000},
+  { {1, 1}, 1782000,  ACPU_SCPLL, 0, 0, 1, 0x21, L2(23), 1275000, 0x03006000},
+  { {1, 1}, 1836000,  ACPU_SCPLL, 0, 0, 1, 0x22, L2(23), 1300000, 0x03006000},
   { {0, 0}, 0 },
 };
 
@@ -846,32 +847,16 @@ uint32_t acpu_check_khz_value(unsigned long khz)
                 return CONFIG_MSM_CPU_FREQ_MIN;
 
         for (f = acpu_freq_tbl_hate; f->acpuclk_khz != 0; f++) {
-                if (khz < 192000) {
-                        if (f->acpuclk_khz == (khz*1000))
-                                return f->acpuclk_khz;
-                        if ((khz*1000) > f->acpuclk_khz) {
-                                f++;
-                                if ((khz*1000) < f->acpuclk_khz) {
-                                        f--;
-                                        return f->acpuclk_khz;
-                                }
-                                f--;
-                        }
-                }
-                if (f->acpuclk_khz == khz) {
-                        return 1;
-                }
-                if (khz > f->acpuclk_khz) {
-                        f++;
-                        if (khz < f->acpuclk_khz) {
-                                f--;
-                                return f->acpuclk_khz;
-                        }
+                if (khz == f->acpuclk_khz)
+                        return f->acpuclk_khz;
+                else if (khz < f->acpuclk_khz) {
                         f--;
+                        if (f->acpuclk_khz == MAX_AXI)
+                                f--;
+                        return f->acpuclk_khz;
                 }
         }
-
-        return 0;
+        return -1;
 }
 EXPORT_SYMBOL(acpu_check_khz_value);
 #endif

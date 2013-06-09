@@ -43,12 +43,12 @@ static atomic_t active_count = ATOMIC_INIT(0);
 struct cpufreq_lulzactive_cpuinfo {
 	struct timer_list cpu_timer;
 	int timer_idlecancel;
-	u64 time_in_idle;
-	u64 idle_exit_time;
-	u64 timer_run_time;
+	cputime64_t time_in_idle;
+	cputime64_t idle_exit_time;
+	cputime64_t timer_run_time;
 	int idling;
-	u64 freq_change_time;
-	u64 freq_change_time_in_idle;
+	cputime64_t freq_change_time;
+	cputime64_t freq_change_time_in_idle;
 	struct cpufreq_policy *policy;
 	struct cpufreq_frequency_table *freq_table;
 	struct cpufreq_frequency_table lulzfreq_table[35];
@@ -70,7 +70,7 @@ static spinlock_t down_cpumask_lock;
 static struct mutex set_speed_lock;
 
 /* Hi speed to bump to from lo speed when load burst (default max) */
-static u64 hispeed_freq = 810000;
+static cputime64_t hispeed_freq = 810000;
 
 /*
  * The minimum amount of time to spend at a frequency before we can step up.
@@ -192,11 +192,11 @@ static void cpufreq_lulzactive_timer(unsigned long data)
 	unsigned int delta_time;
 	int cpu_load;
 	int load_since_change;
-	u64 time_in_idle;
-	u64 idle_exit_time;
+	cputime64_t time_in_idle;
+	cputime64_t idle_exit_time;
 	struct cpufreq_lulzactive_cpuinfo *pcpu =
 		&per_cpu(cpuinfo, data);
-	u64 now_idle;
+	cputime64_t now_idle;
 	unsigned int new_freq;
 	unsigned int index;
 	unsigned long flags;
@@ -595,7 +595,7 @@ static ssize_t store_hispeed_freq(struct kobject *kobj,
 				  size_t count)
 {
 	int ret;
-	u64 val;
+	cputime64_t val;
 
 	ret = strict_strtoull(buf, 0, &val);
 	if (ret < 0)
