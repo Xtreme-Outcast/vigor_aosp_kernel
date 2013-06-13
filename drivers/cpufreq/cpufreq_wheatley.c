@@ -553,7 +553,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	if (deepidle_state) {
 	    deepidle_time = deepidle_state->time;
 	    deepidle_usage = deepidle_state->usage;
-
+		    
 	    total_idletime += (unsigned long)(deepidle_time - j_dbs_info->prev_idletime);
 	    total_usage += (unsigned long)(deepidle_usage - j_dbs_info->prev_idleusage);
 
@@ -837,4 +837,3 @@ fs_initcall(cpufreq_gov_dbs_init);
 module_init(cpufreq_gov_dbs_init);
 #endif
 module_exit(cpufreq_gov_dbs_exit);
-
