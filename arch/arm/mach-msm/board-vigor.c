@@ -3089,7 +3089,7 @@ static void __init msm8x60_init_dsps(void)
 #define MSM_FB_BASE              (MSM_PMEM_AUDIO_BASE + MSM_PMEM_AUDIO_SIZE)
 
 #define MSM_SMI_BASE				0x38000000
-#define MSM_SMI_SIZE				0x4000000
+#define MSM_SMI_SIZE				0x6000000
 
 /* Kernel SMI PMEM Region for video core, used for Firmware */
 /* and encoder, decoder scratch buffers */
