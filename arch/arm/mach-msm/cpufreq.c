@@ -58,7 +58,7 @@ static int override_cpu;
  */
 
 /* to be safe, fill vars with defaults */
-uint32_t cmdline_maxkhz = 1512000, cmdline_minkhz = 192000;
+uint32_t cmdline_maxkhz = 1620000, cmdline_minkhz = 384000;
 char cmdline_gov[16] = "ondemand";
 uint32_t cmdline_maxscroff = 486000;
 bool cmdline_scroff = false;
