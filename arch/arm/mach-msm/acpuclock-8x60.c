@@ -94,6 +94,8 @@ static const void * const clk_sel_addr[] = {SPSS0_CLK_SEL_ADDR,
 static const int rpm_vreg_voter[] = { RPM_VREG_VOTER1, RPM_VREG_VOTER2 };
 static struct regulator *regulator_sc[NR_CPUS];
 
+extern uint32_t cmdline_maxkhz, cmdline_minkhz;
+
 enum scplls {
 	CPU0 = 0,
 	CPU1,
@@ -832,7 +834,8 @@ static struct notifier_block __cpuinitdata acpuclock_cpu_notifier = {
 	.notifier_call = acpuclock_cpu_callback,
 };
 
-#ifdef CONFIG_MSM_MPDEC
+#ifdef CONFIG_CMDLINE_OPTIONS
+/* start cmdline_khz */
 uint32_t acpu_check_khz_value(unsigned long khz)
 {
         struct clkctl_acpu_speed *f;
@@ -843,7 +846,7 @@ uint32_t acpu_check_khz_value(unsigned long khz)
         if (khz < 192000)
                 return CONFIG_MSM_CPU_FREQ_MIN;
 
-        for (f = acpu_freq_tbl_hate; f->acpuclk_khz != 0; f++) {
+        for (f = acpu_freq_tbl_cool; f->acpuclk_khz != 0; f++) {
                 if (khz == f->acpuclk_khz)
                         return f->acpuclk_khz;
                 else if (khz < f->acpuclk_khz) {
@@ -856,6 +859,7 @@ uint32_t acpu_check_khz_value(unsigned long khz)
         return -1;
 }
 EXPORT_SYMBOL(acpu_check_khz_value);
+/* end cmdline_khz */
 #endif
 
 static __init struct clkctl_acpu_speed *select_freq_plan(void)
@@ -912,14 +916,19 @@ static int __init acpuclk_8x60_init(struct acpuclk_soc_data *soc_data)
 	regulator_init();
 	bus_init();
 
-	/* Improve boot time by ramping up CPUs immediately. */
+   /* Improve boot time by ramping up CPUs immediately. */
+  if ((cmdline_maxkhz) && (cmdline_minkhz)) {
+    for_each_online_cpu(cpu)
+      acpuclk_8x60_set_rate(cpu, cmdline_maxkhz, SETRATE_INIT);
+  } else {
 #ifdef CONFIG_MSM_CPU_FREQ_SET_MIN_MAX
-		for_each_online_cpu(cpu)
-			acpuclk_8x60_set_rate(cpu, CONFIG_MSM_CPU_FREQ_MAX, SETRATE_INIT);
+    for_each_online_cpu(cpu)
+      acpuclk_8x60_set_rate(cpu, CONFIG_MSM_CPU_FREQ_MAX, SETRATE_INIT);
 #else
-		for_each_online_cpu(cpu)
-			acpuclk_8x60_set_rate(cpu, 1512000, SETRATE_INIT);
+     for_each_online_cpu(cpu)
+       acpuclk_8x60_set_rate(cpu, 1512000, SETRATE_INIT);
 #endif
+  }
 
 	acpuclk_register(&acpuclk_8x60_data);
 	cpufreq_table_init();
