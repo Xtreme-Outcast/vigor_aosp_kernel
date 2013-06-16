@@ -121,10 +121,10 @@ struct smartass_info_s {
 	struct cpufreq_policy *cur_policy;
 	struct cpufreq_frequency_table *freq_table;
 	struct timer_list timer;
-	u64 time_in_idle;
-	u64 idle_exit_time;
-	u64 freq_change_time;
-	u64 freq_change_time_in_idle;
+	cputime64_t time_in_idle;
+	cputime64_t idle_exit_time;
+	cputime64_t freq_change_time;
+	cputime64_t freq_change_time_in_idle;
 	int cur_cpu_load;
 	int old_freq;
 	int ramp_dir;
@@ -272,12 +272,12 @@ inline static int target_freq(struct cpufreq_policy *policy, struct smartass_inf
 
 static void cpufreq_smartass_timer(unsigned long cpu)
 {
-	u64 delta_idle;
-	u64 delta_time;
+	cputime64_t delta_idle;
+	cputime64_t delta_time;
 	int cpu_load;
 	int old_freq;
-	u64 update_time;
-	u64 now_idle;
+	cputime64_t update_time;
+	cputime64_t now_idle;
 	int queued_work = 0;
 	struct smartass_info_s *this_smartass = &per_cpu(smartass_info, cpu);
 	struct cpufreq_policy *policy = this_smartass->cur_policy;
