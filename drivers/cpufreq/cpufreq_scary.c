@@ -37,8 +37,8 @@
  * It helps to keep variable names smaller, simpler
  */
 
-#define DEF_FREQUENCY_UP_THRESHOLD		(70)
-#define DEF_FREQUENCY_DOWN_THRESHOLD		(30)
+#define DEF_FREQUENCY_UP_THRESHOLD		(63)
+#define DEF_FREQUENCY_DOWN_THRESHOLD		(26)
 
 static unsigned int suspended;
 static unsigned int sleep_max_freq = 486000;
@@ -56,14 +56,14 @@ static unsigned int sleep_prev_max = 1188000;
  * this governor will not work.
  * All times here are in uS.
  */
-#define MIN_SAMPLING_RATE_RATIO			(1)
+#define MIN_SAMPLING_RATE_RATIO			(2)
 
 static unsigned int min_sampling_rate;
 
 #define LATENCY_MULTIPLIER			(200)
 #define MIN_LATENCY_MULTIPLIER			(100)
 #define DEF_SAMPLING_DOWN_FACTOR		(1)
-#define MAX_SAMPLING_DOWN_FACTOR		(10)
+#define MAX_SAMPLING_DOWN_FACTOR		(100000)
 
 static void do_dbs_timer(struct work_struct *work);
 

@@ -51,7 +51,7 @@ struct cpufreq_lulzactive_cpuinfo {
 	cputime64_t freq_change_time_in_idle;
 	struct cpufreq_policy *policy;
 	struct cpufreq_frequency_table *freq_table;
-	struct cpufreq_frequency_table lulzfreq_table[35];
+	struct cpufreq_frequency_table lulzfreq_table[34];
 	unsigned int lulzfreq_table_size;
 	unsigned int target_freq;
 	int governor_enabled;
