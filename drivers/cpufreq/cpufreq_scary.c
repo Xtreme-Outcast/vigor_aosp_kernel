@@ -39,12 +39,13 @@
 
 #define DEF_FREQUENCY_UP_THRESHOLD		(63)
 #define DEF_FREQUENCY_DOWN_THRESHOLD		(26)
+#define TRANSITION_LATENCY_LIMIT		(10 * 1000 * 1000)
 
 static unsigned int suspended;
 static unsigned int sleep_max_freq = 486000;
-static unsigned int sleep_min_freq = 384000;
-static unsigned int sleep_prev_freq = 486000;
-static unsigned int sleep_prev_max = 1188000;
+static unsigned int sleep_min_freq = 192000;
+static unsigned int sleep_prev_freq = 192000;
+static unsigned int sleep_prev_max = 1512000;
 
 /*
  * The polling frequency of this governor depends on the capability of
@@ -60,10 +61,10 @@ static unsigned int sleep_prev_max = 1188000;
 
 static unsigned int min_sampling_rate;
 
-#define LATENCY_MULTIPLIER			(200)
+#define LATENCY_MULTIPLIER			(1000)
 #define MIN_LATENCY_MULTIPLIER			(100)
-#define DEF_SAMPLING_DOWN_FACTOR		(1)
-#define MAX_SAMPLING_DOWN_FACTOR		(100000)
+#define DEF_SAMPLING_DOWN_FACTOR		(2)
+#define MAX_SAMPLING_DOWN_FACTOR		(10)
 
 static void do_dbs_timer(struct work_struct *work);
 
@@ -386,7 +387,7 @@ static void scary_suspend(int cpu, int suspend)
 
     if (suspend) 
     {
-        //If the current min speed is greater than the max sleep, we reset the min to 120mhz, for battery savings
+        //If the current min freq is greater than the max sleep freq, we reset the freq to policy min
             if (policy->min >= sleep_max_freq)
             {
                 sleep_prev_freq=policy->min;
@@ -714,7 +715,7 @@ static
 struct cpufreq_governor cpufreq_gov_scary = {
 	.name			= "scary",
 	.governor		= cpufreq_governor_dbs,
-	.max_transition_latency	= 10000000,
+	.max_transition_latency	= TRANSITION_LATENCY_LIMIT,
 	.owner			= THIS_MODULE,
 };
 

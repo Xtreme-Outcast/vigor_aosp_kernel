@@ -92,12 +92,6 @@ char cmdline_gov[16] = "minmax";
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_LULZACTIVE
 char cmdline_gov[16] = "lulzactive";
 #endif
-#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_ADAPTIVE
-char cmdline_gov[16] = "adaptive";
-#endif
-#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SMARTASS2
-char cmdline_gov[16] = "smartass2";
-#endif
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_WHEATLEY
 char cmdline_gov[16] = "wheatley";
 #endif

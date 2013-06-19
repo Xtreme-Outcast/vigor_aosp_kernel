@@ -115,18 +115,6 @@ config CPU_FREQ_DEFAULT_GOV_LIONHEART
 	help
 	 Use the CPUFreq governor 'lionheart' as default.
 
-config CPU_FREQ_DEFAULT_GOV_SMARTASS2
-	bool "smartass2"
-	select CPU_FREQ_GOV_SMARTASS2
-	help
-	  Use the CPUFreq governor 'smartassV2' as default.
-
-config CPU_FREQ_DEFAULT_GOV_ADAPTIVE
-  	bool "adaptive"
-  	select CPU_FREQ_GOV_ADAPTIVE
-  	help
-    	  Use the CPUFreq governor 'adaptive' as default.
-
 config CPU_FREQ_DEFAULT_GOV_LULZACTIVE
 	bool "lulzactive"
 	select CPU_FREQ_GOV_LULZACTIVE
@@ -208,17 +196,6 @@ config CPU_FREQ_GOV_SCARY
 	help
 	  scary - a governor for cabbages
 
-	  If in doubt, say N.
-
-config CPU_FREQ_GOV_ADAPTIVE
-	tristate "'adaptive' cpufreq governor"
-	depends on CPU_FREQ
-
-config CPU_FREQ_GOV_SMARTASS2
-	tristate "'smartassV2' cpufreq governor"
-	depends on CPU_FREQ
-	help
-	  'smartassV2' - a "smart" governor
 	  If in doubt, say N.
 
 config CPU_FREQ_GOV_BADASS
