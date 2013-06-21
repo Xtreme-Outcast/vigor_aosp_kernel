@@ -1,7 +1,6 @@
 obj-y += io.o dma.o memory.o timer.o
 obj-y += clock.o clock-voter.o clock-dummy.o
 obj-y += subsystem_map.o
-obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
 obj-$(CONFIG_MSM_MPDEC) += msm_mpdecision.o
 obj-$(CONFIG_DEBUG_FS) += nohlt.o clock-debug.o
 obj-$(CONFIG_KEXEC) += msm_kexec.o
@@ -557,3 +556,4 @@ endif
 obj-$(CONFIG_PERFLOCK) += perflock.o
 obj-$(CONFIG_MFD_MAX8957) += max8957_gpio.o
 obj-y += display/
+obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
