@@ -33,10 +33,10 @@
 #include <linux/delay.h>
 
 #define MPDEC_TAG                       "[MPDEC]: "
-#define MSM_MPDEC_STARTDELAY            70000
-#define MSM_MPDEC_DELAY                 130
+#define MSM_MPDEC_STARTDELAY            60000
+#define MSM_MPDEC_DELAY                 150
 #define MSM_MPDEC_PAUSE                 10000
-#define MSM_MPDEC_IDLE_FREQ             486000
+#define MSM_MPDEC_IDLE_FREQ             540000
 
 enum {
 	MSM_MPDEC_DISABLED = 0,
@@ -70,7 +70,7 @@ static struct msm_mpdec_tuners {
 	.idle_freq = MSM_MPDEC_IDLE_FREQ,
 };
 
-static unsigned int NwNs_Threshold[4] = {12, 0, 0, 7};
+static unsigned int NwNs_Threshold[4] = {16, 0, 0, 8};
 static unsigned int TwTs_Threshold[4] = {140, 0, 0, 140};
 
 extern unsigned int get_rq_info(void);
