@@ -51,7 +51,7 @@ struct cpufreq_lulzactive_cpuinfo {
 	cputime64_t freq_change_time_in_idle;
 	struct cpufreq_policy *policy;
 	struct cpufreq_frequency_table *freq_table;
-	struct cpufreq_frequency_table lulzfreq_table[36];
+	struct cpufreq_frequency_table lulzfreq_table[34];
 	unsigned int lulzfreq_table_size;
 	unsigned int target_freq;
 	int governor_enabled;
@@ -70,7 +70,7 @@ static spinlock_t down_cpumask_lock;
 static struct mutex set_speed_lock;
 
 /* Hi speed to bump to from lo speed when load burst (default max) */
-static cputime64_t hispeed_freq = 1296000;
+static cputime64_t hispeed_freq = 1404000;
 
 /*
  * The minimum amount of time to spend at a frequency before we can step up.

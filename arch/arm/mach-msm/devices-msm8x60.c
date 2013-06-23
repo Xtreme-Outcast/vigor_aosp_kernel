@@ -1087,13 +1087,11 @@ static struct resource kgsl_3d0_resources[] = {
 
 static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 	.pwrlevel = {
-#ifdef CONFIG_HIRO_CPU
 		{
 			.gpu_freq = 320000000,
 			.bus_freq = 4,
 			.io_fraction = 0,
 		},
-#endif
 		{
 			.gpu_freq = 300000000,
 			.bus_freq = 4,
@@ -1119,14 +1117,15 @@ static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 			.bus_freq = 1,
 			.io_fraction = 100,
 		},
+		{
+			.gpu_freq = 160000000,
+			.bus_freq = 0,
+			.io_fraction = 100,
+		},
 	},
-	.init_level = 0,
+	.init_level = 1,
 	.max_level = 0,
-#ifdef CONFIG_HIRO_CPU
-	.num_levels = 6,
-#else
-	.num_levels = 5,
-#endif
+	.num_levels = 7,
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/5,
 	.nap_allowed = true,
@@ -1163,7 +1162,6 @@ static struct resource kgsl_2d0_resources[] = {
 
 static struct kgsl_device_platform_data kgsl_2d0_pdata = {
 	.pwrlevel = {
-#ifdef CONFIG_HIRO_CPU
 		{
 			.gpu_freq = 266667000,
 			.bus_freq = 2,
@@ -1177,31 +1175,13 @@ static struct kgsl_device_platform_data kgsl_2d0_pdata = {
 			.bus_freq = 1,
 		},
 		{
-			.gpu_freq = 177778000,
-			.bus_freq = 1,
+			.gpu_freq = 160000000,
+			.bus_freq = 0,
 		},
 	},
 	.init_level = 0,
 	.max_level = 0,
 	.num_levels = 4,
-#else		
-		{
-			.gpu_freq = 228571000,
-			.bus_freq = 2,
-		},
-		{
-			.gpu_freq = 200000000,
-			.bus_freq = 1,
-		},
-		{
-			.gpu_freq = 177778000,
-			.bus_freq = 1,
-		},
-	},
-	.init_level = 0,
-	.max_level = 0,
-	.num_levels = 3,
-#endif
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/10,
 	.nap_allowed = false,
@@ -1238,7 +1218,6 @@ static struct resource kgsl_2d1_resources[] = {
 
 static struct kgsl_device_platform_data kgsl_2d1_pdata = {
 	.pwrlevel = {
-#ifdef CONFIG_HIRO_CPU
 		{
 			.gpu_freq = 266667000,
 			.bus_freq = 2,
@@ -1252,31 +1231,13 @@ static struct kgsl_device_platform_data kgsl_2d1_pdata = {
 			.bus_freq = 1,
 		},
 		{
-			.gpu_freq = 177778000,
-			.bus_freq = 1,
+			.gpu_freq = 160000000,
+			.bus_freq = 0,
 		},
 	},
 	.init_level = 0,
 	.max_level = 0,
 	.num_levels = 4,
-#else		
-		{
-			.gpu_freq = 228571000,
-			.bus_freq = 2,
-		},
-		{
-			.gpu_freq = 200000000,
-			.bus_freq = 1,
-		},
-		{
-			.gpu_freq = 177778000,
-			.bus_freq = 1,
-		},
-	},
-	.init_level = 0,
-	.max_level = 0,
-	.num_levels = 3,
-#endif
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/10,
 	.nap_allowed = false,
