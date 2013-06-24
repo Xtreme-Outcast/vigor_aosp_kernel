@@ -1,11 +1,7 @@
 VERSION = 3
 PATCHLEVEL = 0
 SUBLEVEL = 83
-ifdef CONFIG_HIRO_CPU
 EXTRAVERSION =-hiro
-else
-EXTRAVERSION =-lean
-endif
 NAME = Sneaky Weasel
 
 # *DOCUMENTATION*
